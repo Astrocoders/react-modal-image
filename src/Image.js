@@ -1,24 +1,24 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import { SpinnerIcon } from "./icons";
+import { SpinnerIcon } from './icons'
 
-import { spinner } from "./styles";
+import { spinner } from './styles'
 
 export default class Image extends Component {
   state = {
-    loading: true
-  };
+    loading: true,
+  }
 
   handleOnLoad = () => {
-    this.setState({ loading: false });
-  };
+    this.setState({ loading: false })
+  }
 
   handleOnContextMenu = event => {
-    !this.props.contextMenu && event.preventDefault();
-  };
+    !this.props.contextMenu && event.preventDefault()
+  }
 
   render() {
-    const { id, src, handleDoubleClick, styles } = this.props;
+    const { id, src, handleDoubleClick, styles } = this.props
 
     return (
       <div>
@@ -36,6 +36,6 @@ export default class Image extends Component {
           style={styles}
         />
       </div>
-    );
+    )
   }
 }

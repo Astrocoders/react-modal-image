@@ -9,13 +9,13 @@ A _lightweight_ React component providing modal image Lightbox.
 
 ## Features
 
-* Only _3 kB_ when gzipped.
-* Zero dependencies.
-* Includes builds for CommonJS and ES modules.
-* For React 15.x and 16.x.
-* Esc, Enter & click outside the image close the lightbox
-* User can zoom & move the image or download the highest quality one
-* Image alt shown as title of lightbox
+- Only _3 kB_ when gzipped.
+- Zero dependencies.
+- Includes builds for CommonJS and ES modules.
+- For React 15.x and 16.x.
+- Esc, Enter & click outside the image close the lightbox
+- User can zoom & move the image or download the highest quality one
+- Image alt shown as title of lightbox
 
 You need to bring your own `Set` polyfill if you use old Internet Explorers.
 
@@ -31,14 +31,15 @@ import ModalImage from 'react-modal-image'
 />
 ```
 
-| Prop          | Type     | Description                                                                         |
-| ------------- | -------- | ----------------------------------------------------------------------------------- |
-| `className`   | `String` | Optional. `class` for the small preview image.                                      |
-| `alt`         | `String` | Optional. `alt` for the small image and the heading text in Lightbox.               |
-| `small`       | `URL`    | `src` for the small preview image.                                                  |
-| `smallSrcSet` | `String` | Optional. `srcSet` for the small preview image.                                     |
-| `medium`      | `URL`    | Optional if `large` is defined. Image shown when zoomed out in Lightbox.            |
-| `large`       | `URL`    | Optional if `medium` is defined. Image shown when zoomed in Lightbox. Downloadable. |
+| Prop                | Type      | Description                                                                         |
+| ------------------- | --------- | ----------------------------------------------------------------------------------- |
+| `className`         | `String`  | Optional. `class` for the small preview image.                                      |
+| `alt`               | `String`  | Optional. `alt` for the small image and the heading text in Lightbox.               |
+| `small`             | `URL`     | `src` for the small preview image.                                                  |
+| `smallSrcSet`       | `String`  | Optional. `srcSet` for the small preview image.                                     |
+| `medium`            | `URL`     | Optional if `large` is defined. Image shown when zoomed out in Lightbox.            |
+| `large`             | `URL`     | Optional if `medium` is defined. Image shown when zoomed in Lightbox. Downloadable. |
+| `hasDownloadButton` | `Boolean` | Optional. Show download button in LightBox if set `true`                            |
 
 ## Lightbox-only API
 
@@ -47,25 +48,20 @@ You can also choose to import only the Lightbox.
 To use the Lightbox only, you'll need to handle the open state by yourself:
 
 ```js
-import { Lightbox } from "react-modal-image";
+import { Lightbox } from 'react-modal-image'
 
 // ...
 
 const closeLightbox = () => {
-  this.state.open = true;
-};
+  this.state.open = true
+}
 
 // ...
 
 {
   this.state.open && (
-    <Lightbox
-      medium={urlToLargeImageFile}
-      large={urlToHugeImageFile}
-      alt="Hello World!"
-      onClose={this.closeLightbox}
-    />
-  );
+    <Lightbox medium={urlToLargeImageFile} large={urlToHugeImageFile} alt="Hello World!" onClose={this.closeLightbox} />
+  )
 }
 ```
 
