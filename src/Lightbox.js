@@ -1,127 +1,127 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import * as style from "./styles";
+import * as style from './styles'
 
-import Header from "./Header";
-import Image from "./Image";
+import Header from './Header'
+import Image from './Image'
 
-import { SpinnerIcon } from "./icons";
+import { SpinnerIcon } from './icons'
 
 export default class Lightbox extends Component {
   state = {
     move: { x: 0, y: 0 },
     moveStart: undefined,
-    zoomed: false
-  };
+    zoomed: false,
+  }
 
   handleKeyDown = event => {
     // ESC or ENTER closes the modal
     if (event.keyCode === 27 || event.keyCode === 13) {
-      this.props.onClose();
+      this.props.onClose()
     }
-  };
+  }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyDown, false);
+    document.addEventListener('keydown', this.handleKeyDown, false)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown, false);
+    document.removeEventListener('keydown', this.handleKeyDown, false)
   }
 
   getCoordinatesIfOverImg = event => {
-    const point = event.changedTouches ? event.changedTouches[0] : event;
+    const point = event.changedTouches ? event.changedTouches[0] : event
 
-    if (point.target.id !== "react-modal-image-img") {
+    if (point.target.id !== 'react-modal-image-img') {
       // the img was not a target of the coordinates
-      return;
+      return
     }
 
-    const dim = this.contentEl.getBoundingClientRect();
-    const x = point.clientX - dim.left;
-    const y = point.clientY - dim.top;
+    const dim = this.contentEl.getBoundingClientRect()
+    const x = point.clientX - dim.left
+    const y = point.clientY - dim.top
 
-    return { x, y };
-  };
+    return { x, y }
+  }
 
   handleMouseDownOrTouchStart = event => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (event.touches && event.touches.length > 1) {
       // more than one finger, ignored
-      return;
+      return
     }
 
-    const coords = this.getCoordinatesIfOverImg(event);
+    const coords = this.getCoordinatesIfOverImg(event)
 
     if (!coords) {
       // click outside the img => close modal
-      this.props.onClose();
+      this.props.onClose()
     }
 
     if (!this.state.zoomed) {
       // do not allow drag'n'drop if zoom has not been applied
-      return;
+      return
     }
 
     this.setState(prevState => {
       return {
         moveStart: {
           x: coords.x - prevState.move.x,
-          y: coords.y - prevState.move.y
-        }
-      };
-    });
-  };
+          y: coords.y - prevState.move.y,
+        },
+      }
+    })
+  }
 
   handleMouseMoveOrTouchMove = event => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (!this.state.zoomed || !this.state.moveStart) {
       // do not allow drag'n'drop if zoom has not been applied
       // or if there has not been a click
-      return;
+      return
     }
 
     if (event.touches && event.touches.length > 1) {
       // more than one finger, ignored
-      return;
+      return
     }
 
-    const coords = this.getCoordinatesIfOverImg(event);
+    const coords = this.getCoordinatesIfOverImg(event)
 
     if (!coords) {
-      return;
+      return
     }
 
     this.setState(prevState => {
       return {
         move: {
           x: coords.x - prevState.moveStart.x,
-          y: coords.y - prevState.moveStart.y
-        }
-      };
-    });
-  };
+          y: coords.y - prevState.moveStart.y,
+        },
+      }
+    })
+  }
 
   handleMouseUpOrTouchEnd = event => {
     this.setState({
-      moveStart: undefined
-    });
-  };
+      moveStart: undefined,
+    })
+  }
 
   toggleZoom = event => {
-    event.preventDefault();
+    event.preventDefault()
     this.setState(prevState => ({
       zoomed: !prevState.zoomed,
       // reset position if zoomed out
-      move: prevState.zoomed ? { x: 0, y: 0 } : prevState.move
-    }));
-  };
+      move: prevState.zoomed ? { x: 0, y: 0 } : prevState.move,
+    }))
+  }
 
   render() {
-    const { medium, large, alt, onClose } = this.props;
-    const { move, zoomed } = this.state;
+    const { medium, large, alt, onClose, hasDownloadButton } = this.props
+    const { move, zoomed } = this.state
 
     return (
       <div style={style.modal}>
@@ -133,7 +133,7 @@ export default class Lightbox extends Component {
           onTouchEnd={this.handleMouseUpOrTouchEnd}
           onTouchMove={this.handleMouseMoveOrTouchMove}
           ref={el => {
-            this.contentEl = el;
+            this.contentEl = el
           }}
           style={style.modalContent}
         >
@@ -162,8 +162,9 @@ export default class Lightbox extends Component {
           zoomed={zoomed}
           toggleZoom={this.toggleZoom}
           onClose={onClose}
+          hasDownloadButton={hasDownloadButton}
         />
       </div>
-    );
+    )
   }
 }
