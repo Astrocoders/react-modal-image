@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import { smallImage } from "./styles";
-import Lightbox from "./Lightbox";
+import { smallImage } from './styles'
+import Lightbox from './Lightbox'
 
-export { default as Lightbox } from "./Lightbox";
+export { default as Lightbox } from './Lightbox'
 
 export default class extends Component {
-  state = { modalOpen: false };
+  state = { modalOpen: false }
 
   toggleModal = () => {
     this.setState(prevState => ({
-      modalOpen: !prevState.modalOpen
-    }));
-  };
+      modalOpen: !prevState.modalOpen,
+    }))
+  }
 
   render() {
-    const { className, small, smallSrcSet, medium, large, alt } = this.props;
-    const { modalOpen } = this.state;
+    const { className, small, smallSrcSet, medium, large, alt, hasDownloadButton = false } = this.props
+    const { modalOpen } = this.state
 
     return (
       <div>
@@ -34,9 +34,10 @@ export default class extends Component {
             large={large}
             alt={alt}
             onClose={this.toggleModal}
+            hasDownloadButton={hasDownloadButton}
           />
         )}
       </div>
-    );
+    )
   }
 }
