@@ -33,7 +33,7 @@ export const spinner = {
 
 export const mediumImage = {
   position: 'absolute',
-  top: '50%',
+  top: '52%',
   left: '50%',
   transform: 'translate3d(-50%, -50%, 0)',
   maxWidth: '90%',
@@ -42,7 +42,7 @@ export const mediumImage = {
 
 export const largeImage = (x, y) => ({
   position: 'absolute',
-  top: '50%',
+  top: '52%',
   left: '50%',
   transform: `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, 0)`,
   cursor: 'move',
